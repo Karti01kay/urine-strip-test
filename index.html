@@ -1,14 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Upload Urine Strip Image</title>
-    </head>
-    
-    <body>
-        <h1>Upload Urine Strip Image</h1>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file">
-            <input type="submit" value="Upload">
-        </form>
-    </body>
+
+<head>
+    <title>Upload Urine Strip Image</title>
+    <style>
+        #image-container img {
+            max-height: 200px;
+            /* Set the maximum height */
+            width: auto;
+            /* Maintain aspect ratio */
+        }
+    </style>
+    <script>
+        async function uploadFile(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            if (result.error) {
+                alert(result.error);
+            } else {
+                displayResult(result);
+            }
+        }
+
+        function displayResult(result) {
+            const imageContainer = document.getElementById('image-container');
+            const colorsContainer = document.getElementById('colors-container');
+            imageContainer.innerHTML = `<img src="${result.image_url}" alt="Uploaded Image">`;
+            colorsContainer.innerHTML = '';
+            result.colors.forEach(color => {
+                const colorDiv = document.createElement('div');
+                colorDiv.style.width = '50px';
+                colorDiv.style.height = '50px';
+                colorDiv.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+                const colorText = document.createElement('div');
+                colorText.textContent = `RGB(${color[0]}, ${color[1]}, ${color[2]})`;
+                const colorWrapper = document.createElement('div');
+                colorWrapper.style.margin = '10px';
+                colorWrapper.style.display = 'flex';
+                colorWrapper.style.flexDirection = 'column';
+                colorWrapper.style.alignItems = 'center';
+                colorWrapper.appendChild(colorDiv);
+                colorWrapper.appendChild(colorText);
+                colorsContainer.appendChild(colorWrapper);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Upload Urine Strip Image</h1>
+    <form onsubmit="uploadFile(event)">
+        <input type="file" name="file" required>
+        <input type="submit" value="Upload">
+    </form>
+    <div id="image-container"></div>
+    <div id="colors-container" style="display: flex; flex-wrap: wrap;"></div>
+</body>
+
 </html>
