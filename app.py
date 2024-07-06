@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, url_for
 import cv2
 import numpy as np
 import os
@@ -48,7 +48,12 @@ def upload_file():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
         colors = analyze_strip(file_path)
-        return jsonify({'colors': colors})
+        image_url = url_for('uploaded_file', filename=file.filename)
+        return jsonify({'colors': colors, 'image_url': image_url})
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
