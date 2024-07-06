@@ -50,5 +50,10 @@ http://127.0.0.1:5000
 
 #     Screenshots to show the working
 ![SS1 - homepage](https://res.cloudinary.com/dkddubkcn/image/upload/v1720258742/Screenshot_275_qujzun.png)
+Screenshot 1
+
 ![SS2 - example1](https://res.cloudinary.com/dkddubkcn/image/upload/v1720258742/Screenshot_276_e5j89o.png)
+Screenshot 2
+
 ![SS3 - example2](https://res.cloudinary.com/dkddubkcn/image/upload/v1720258742/Screenshot_277_giztvv.png)
+Screenshot 3
