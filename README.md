@@ -1,5 +1,10 @@
+# Introduction
+A web interface that allows users to upload an image of their urine strip (see below) and identify the colors on the strip (see strip images below). Each strip
+will have 10 colors. You will have to analyze the image and return the results as a json with 10 colors (RGB values).
+
+
 # Overview of the solution  
-To create a web interface that allows users to upload an image of their urine strip and identify the colors on the strip, we can break the task into several steps:
+We can break the task into several steps:
 
 1) Create a Web Interface: Using a framework like Flask (Python) or Node.js (JavaScript) to handle file uploads.
 2) Image Processing: Use OpenCV to analyze the uploaded image and extract the colors.
